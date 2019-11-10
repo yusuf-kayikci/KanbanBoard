@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+/* @media screen and (max-width: 992px) {
+  .column {
+    width: 50%;
+  }
+} */
+
+/* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
+/* @media screen and (max-width: 600px) {
+  .taskBox {
+
+  }
+} */
+
+.taskBox {
+  border-radius: 2;
+  padding-left: 20;
+  padding-bottom: 30;
+  margin-bottom: 30;
+  border-style: "hidden";
+  height : 220 ;
+  box-Shadow : "#e0e0e0 1px 2px 3px 1px";
+}
+

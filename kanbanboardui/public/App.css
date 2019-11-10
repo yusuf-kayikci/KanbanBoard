@@ -1,0 +1,95 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+
+
+.task{
+  position: relative;
+  border-radius : 2px; 
+  padding-left : 20px;
+  padding-bottom : 30px;
+  border-style : hidden; 
+  height : 150px;
+  box-shadow : #e0e0e0 1px 2px 3px 1px;
+  cursor: move;
+  position: relative;
+  margin-top: 10px;
+  overflow: hidden;
+
+}
+.completedLabel{
+  height: 25px;
+  background-color : #a1da4c;
+  color : white;
+  padding-left : 10px;
+  text-align : center ;
+  margin-left : 55%;
+}
+
+.title{
+    font-size: 30px;
+}
+.content{
+    font-size: 20px;
+}
+.dueDate{
+    margin-top : 10px;
+    font-size : 15px;
+}
+
+/* If screen size is more than 600px wide, set the font-size of <div> to 80px */
+
+/* 768 -- 1075 */
+
+
+/* If screen size is 600px wide, or less, set the font-size of <div> to 30px */
+@media (min-width: 768px) and (max-width: 1075px) {
+  /* div.task{height:300px ;} */
+  div.task.title{font-size: 22px;}
+  div.content{font-size: 12px;}
+  
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+  /* div.task{height:300px ;} */
+  div.header .text{font-size: 25;}
+  
+}
+
+.imageButton{
+  position: fixed;
+  top: 90vh;
+  right: 10px;
+}
+
+.header{
+  margin : 5px;
+}
+
+.header .icon{
+  float: left;
+}
+
+.header .text{
+  font-size: 35px;
+}
