@@ -6,79 +6,75 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tasks")
 public class Task {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private long id;
-
-    @Column(name = "title", nullable = false)
     private String title;
-
-    @Column(name = "content", nullable = false)
     private String content;
-
-    @Column(name = "dueDate", nullable = false)
     private String dueDate;
-
-    @Column(name = "completeDate", nullable = false)
     private String completedDate;
-
-    @Column(name = "status", nullable = false)
     private TaskStatus status;
 
 
 
-
-    public long GetId(){
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public long getId(){
         return this.id;
     }
 
-    public void SetId(int id){
+    public void setId(long id){
         this.id = id;
     }
 
 
 
 
-
-    public String GetTitle(){
+    @Column(name = "title", nullable = false)
+    public String getTitle(){
         return this.title;
     }
-    public void SetTitle(String title){
+
+    public void setTitle(String title){
         this.title = title;
     }
 
-    public String GetContent(){
+    @Column(name = "content", nullable = true)
+    public String getContent(){
         return this.content;
     }
-    public void SetContent(String content){
+    public void setContent(String content){
         this.content = content;
     }
 
 
-
-    public String GetDueDate(){
+    @Column(name = "due_date", nullable = false)
+    public String getDueDate(){
         return this.dueDate;
     }
-    public void SetDueDate(String dueDate){
+
+
+    public void setDueDate(String dueDate){
         this.dueDate = dueDate;
     }
 
 
-
-    public String GetCompleteDate(){
+    @Column(name = "complete_date", nullable = true)
+    public String getCompleteDate(){
         return this.completedDate;
     }
-    public void SetCompleteDate(String completeDate){
+
+
+    public void setCompleteDate(String completeDate){
         this.completedDate = completeDate;
     }
 
 
-
-    public TaskStatus GetStatus(){
+    @Column(name = "status", nullable = false)
+    public TaskStatus getStatus(){
         return this.status;
     }
 
-    public void SetStatus(TaskStatus status){
+    public void setStatus(TaskStatus status){
         this.status = status;
     }
 

@@ -54,7 +54,7 @@ public class TaskController {
             throws ResourceNotFoundException {
         Task task = _taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found for this id :: " + taskId));
-        task.SetStatus(updatedTask.GetStatus());
+        task.setStatus(updatedTask.getStatus());
         final  Task savedTask = _taskRepository.save(task);
         return new ResponseEntity<Task>(savedTask, HttpStatus.OK);
     }
