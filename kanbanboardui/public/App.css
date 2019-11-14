@@ -43,14 +43,15 @@
   color : white;
   padding-left : 10px;
   text-align : center ;
-  margin-left : 55%;
+  margin-left : 35%;
 }
 
 .title{
-    font-size: 30px;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 .content{
-    font-size: 20px;
+    font-size: 15px;
 }
 .dueDate{
     margin-top : 10px;
@@ -65,8 +66,9 @@
 /* If screen size is 600px wide, or less, set the font-size of <div> to 30px */
 @media (min-width: 768px) and (max-width: 1075px) {
   /* div.task{height:300px ;} */
-  div.task.title{font-size: 22px;}
-  div.content{font-size: 12px;}
+  div.title{font-size: 15px;}
+  div.content{font-size: 10px;}
+  div.completedLabel{margin-left: auto;}
   
 }
 
@@ -74,6 +76,14 @@
   /* div.task{height:300px ;} */
   div.header .text{font-size: 25;}
   
+}
+
+.form-margin {
+  margin-bottom: 5px;
+}
+
+.confirmNewTaskButtonWrapper{
+  text-align: end;
 }
 
 .imageButton{

@@ -26,13 +26,4 @@ code {
   }
 } */
 
-.taskBox {
-  border-radius: 2;
-  padding-left: 20;
-  padding-bottom: 30;
-  margin-bottom: 30;
-  border-style: "hidden";
-  height : 220 ;
-  box-Shadow : "#e0e0e0 1px 2px 3px 1px";
-}
 
