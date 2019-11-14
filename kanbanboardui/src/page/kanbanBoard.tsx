@@ -24,9 +24,9 @@ interface doneState extends ITaskState{}
 interface ongoingState extends ITaskState{}
 
 
-const todoHeaderProps = {iconPath : "./images/done.png" , text :"TODO"}
+const todoHeaderProps = {iconPath : "./images/todo.png" , text :"TODO"}
 const ongoingHeaderProps = {iconPath : "./images/ongoing.png" , text : "ONGOING"}
-const doneHeaderProps = { iconPath :"./images/todo.png", text :"TODO"}
+const doneHeaderProps = { iconPath :"./images/done.png", text :"DONE"}
 
 export const KanbanBoard : React.FC<any> = (props) => {
 
@@ -102,7 +102,6 @@ export const KanbanBoard : React.FC<any> = (props) => {
             let listSource = getList(source.droppableId);
             let listDest = getList(destination.droppableId);
             const result = move(listSource , listDest,  source,destination);
-            debugger;
             let putObject : ITask = result[2];        
             putObject.status = destination.droppableId;
             if(putObject.status == TaskStatus.DONE){

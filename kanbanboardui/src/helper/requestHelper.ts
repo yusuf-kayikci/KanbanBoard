@@ -1,12 +1,12 @@
 import { ITask } from "../components/TaskBox";
 
 
-
+const baseUrl =  "http://localhost:8080/api/v1/tasks" 
 
 
 export const Get = () => {
     return new Promise<Array<ITask>>((resolve , reject) => {
-            fetch("http://localhost:8080/api/v1/tasks" , {
+            fetch(baseUrl , {
                 method: "GET",
             }).then((response : any) =>{
                 if(response.status == 200){
@@ -24,7 +24,7 @@ export const Get = () => {
 export const Put = (id : number , data : any) => {
 
     return new Promise<Array<ITask>>((resolve , reject) => {
-        fetch("http://localhost:8080/api/v1/task/" + id , {
+        fetch(baseUrl + "/" +  id , {
             mode: "cors", // no-cors, cors, *same-origin
             headers: {
                 "Content-Type": "application/json"
@@ -48,7 +48,7 @@ export const Put = (id : number , data : any) => {
 export const Post = (data : any) => {
     console.log(JSON.stringify(data))
     return new Promise<ITask>((resolve , reject) => {
-        fetch("http://localhost:8080/api/v1/task", {
+        fetch(baseUrl, {
             mode: "cors", // no-cors, cors, *same-origin
             headers: {
                 "Content-Type": "application/json"
