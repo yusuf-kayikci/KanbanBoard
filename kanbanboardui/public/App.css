@@ -103,3 +103,7 @@
 .header .text{
   font-size: 35px;
 }
+
+.modalButton{
+  text-align: end;
+}

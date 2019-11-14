@@ -19,12 +19,14 @@ interface ITaskState{
 }
 
 
-interface TODOState extends ITaskState{}
-interface DONEState extends ITaskState{}
-interface ONGOINGState extends ITaskState{}
+interface todoState extends ITaskState{}
+interface doneState extends ITaskState{}
+interface ongoingState extends ITaskState{}
 
 
-
+const todoHeaderProps = {iconPath : "./images/done.png" , text :"TODO"}
+const ongoingHeaderProps = {iconPath : "./images/ongoing.png" , text : "ONGOING"}
+const doneHeaderProps = { iconPath :"./images/todo.png", text :"TODO"}
 
 export const KanbanBoard : React.FC<any> = (props) => {
 
@@ -38,9 +40,9 @@ export const KanbanBoard : React.FC<any> = (props) => {
         }
     }
     //MANAGE STATES SEPARATELY FOR OPTIMUM PERFORMANCE
-    const [todoState , setTodoState] = useState<TODOState>({items : [] , id : TaskStatus.TODO})
-    const [doneState , setDoneState] = useState<DONEState>({items : [] , id : TaskStatus.DONE})
-    const [ongoingState , setOngoingState] = useState<ONGOINGState>({items : [] , id : TaskStatus.ONGOING})
+    const [todoState , setTodoState] = useState<todoState>({items : [] , id : TaskStatus.TODO})
+    const [doneState , setDoneState] = useState<doneState>({items : [] , id : TaskStatus.DONE})
+    const [ongoingState , setOngoingState] = useState<ongoingState>({items : [] , id : TaskStatus.ONGOING})
     //CHECK STATE OF MODAL
     const [show , setShow] = useState<boolean>(false);
 
@@ -89,25 +91,17 @@ export const KanbanBoard : React.FC<any> = (props) => {
             return;
         }
         if (source.droppableId === destination.droppableId) {
-            console.log("source destination eşit...");
-            debugger;
-            const items = reorder(
-                getList(source.droppableId),
-                source.index,
-                destination.index
-            );
+            console.log("source destination equal...");
+            let list = getList(source.droppableId);
+            const items = reorder(list , source.index , destination.index);
             console.log(items);
-            refreshThenReOrder(source.droppableId , items)
+            refreshThenReOrder(source.droppableId , items) // provide that order index change in same category
 
         } 
         else {
-            debugger;
-            const result = move(
-                getList(source.droppableId),
-                getList(destination.droppableId),
-                source,
-                destination
-            );
+            let listSource = getList(source.droppableId);
+            let listDest = getList(destination.droppableId);
+            const result = move(listSource , listDest,  source,destination);
             debugger;
             let putObject : ITask = result[2];        
             putObject.status = destination.droppableId;
@@ -121,11 +115,6 @@ export const KanbanBoard : React.FC<any> = (props) => {
                 refreshSourceThenMove(result[0])
                 refreshDestThenMove(result[1])                
             })
-
-
-
-
-
         }
     };
 
@@ -133,9 +122,9 @@ export const KanbanBoard : React.FC<any> = (props) => {
 
 
 
-    const refreshDestThenMove= (result : any) => {
+    const refreshDestThenMove= (result : ITaskState) => {
         switch (result.id) {
-            case TaskStatus.TODO:
+            case TaskStatus.TODO: //change also taskstatus after drag end drop
                     result.items.every((x: any) => {
                         x.status = TaskStatus.TODO;
                     })
@@ -156,7 +145,7 @@ export const KanbanBoard : React.FC<any> = (props) => {
         }
     }
 
-    const refreshSourceThenMove = (result : any) => {
+    const refreshSourceThenMove = (result : ITaskState) => {
         switch (result.id) {
             case TaskStatus.TODO:
                 result.items.every((x: any) => {
@@ -179,7 +168,7 @@ export const KanbanBoard : React.FC<any> = (props) => {
         }
     }
 
-    const refreshThenReOrder = (sourceName : string , items : any) => {
+    const refreshThenReOrder = (sourceName : string , items : any[]) => {
         switch (sourceName) {
             case TaskStatus.TODO:
                 setTodoState({...todoState , items : items})
@@ -205,22 +194,22 @@ export const KanbanBoard : React.FC<any> = (props) => {
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className = "row">
                     <div  className="col">    
-                        <Header iconPath ="./images/todo.png" text ="TODO"/> 
+                        <Header {...todoHeaderProps}/> 
                         <KanbanboardColumn id="TODO" tasks = {todoState.items!} status={TaskStatus.TODO}></KanbanboardColumn>
                     </div>
                     <div  className="col">
-                        <Header iconPath ="./images/ongoing.png" text ="ONGOING"/> 
+                        <Header {...ongoingHeaderProps}/> 
                         <KanbanboardColumn  id ="ONGOING" tasks = {ongoingState.items!} status={TaskStatus.ONGOING}></KanbanboardColumn>
                     </div>
                     <div  className="col">
-                        <Header iconPath ="./images/done.png" text ="TODO"/> 
+                        <Header {...doneHeaderProps} /> 
                         <KanbanboardColumn id="DONE" tasks = {doneState.items!} status={TaskStatus.DONE}> </KanbanboardColumn>
                     </div>                            
                 </div>
             </DragDropContext>
             
             <AddNewTaskModal show={show} onHide={() => setShow(!show)} onCreatedTask = {() => fetchTasks()} > </AddNewTaskModal>
-            <div style={{textAlign : "end"}}>
+            <div >
                 <AddNewTaskButton {...newTaskButtonProps}></AddNewTaskButton>
             </div>  
         </div>        
