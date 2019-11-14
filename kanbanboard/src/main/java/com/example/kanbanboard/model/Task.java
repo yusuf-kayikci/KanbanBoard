@@ -1,6 +1,9 @@
 package com.example.kanbanboard.model;
 
+import org.springframework.expression.spel.ast.NullLiteral;
+
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 
 
 @Entity
@@ -58,9 +61,11 @@ public class Task {
     }
 
 
-    @Column(name = "complete_date", nullable = true)
+
+    //if status not done get null completed date
+    @Column(name = "complete_date", nullable = true )
     public String getCompleteDate(){
-        return this.completedDate;
+        return (getStatus() != TaskStatus.DONE) ? null : this.completedDate;
     }
 
 
