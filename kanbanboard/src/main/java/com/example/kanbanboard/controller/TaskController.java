@@ -2,6 +2,7 @@ package com.example.kanbanboard.controller;
 
 import com.example.kanbanboard.exception.ResourceNotFoundException;
 import com.example.kanbanboard.model.Task;
+import com.example.kanbanboard.model.TaskStatus;
 import com.example.kanbanboard.repository.TaskRepository;
 
 import jdk.management.resource.ResourceRequestDeniedException;
@@ -54,7 +55,9 @@ public class TaskController {
             throws ResourceNotFoundException {
         Task task = _taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found for this id :: " + taskId));
+
         task.setStatus(updatedTask.getStatus());
+        task.setCompleteDate(updatedTask.getCompleteDate());
         final  Task savedTask = _taskRepository.save(task);
         return new ResponseEntity<Task>(savedTask, HttpStatus.OK);
     }
