@@ -1,12 +1,9 @@
 package com.example.kanbanboard.controller;
 
 import com.example.kanbanboard.exception.ResourceNotFoundException;
-import com.example.kanbanboard.model.Task;
-import com.example.kanbanboard.model.TaskStatus;
+import com.example.kanbanboard.model.KanbanTask;
 import com.example.kanbanboard.repository.TaskRepository;
-
 import jdk.management.resource.ResourceRequestDeniedException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,57 +14,51 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class TaskController {
-    @Autowired
-    private TaskRepository _taskRepository;
-    @Autowired
-    public TaskController()
-    {
+    private final TaskRepository _taskRepository;
 
+    public TaskController(final TaskRepository taskRepository) {
+        _taskRepository = taskRepository;
     }
 
-    @RequestMapping(value = "/test" , method = RequestMethod.GET)
-    public String Test(){
-        return "Test";
-    }
 
     @RequestMapping(value = "/tasks" , method = RequestMethod.GET)
-    public List<Task> GetAll(){
+    public List<KanbanTask> GetAll() {
         return _taskRepository.findAll();
     }
 
-    @RequestMapping(value = "/task/{id}" , method = RequestMethod.GET)
-    public ResponseEntity< Task > GetTaskById(@PathVariable(value = "id") Long taskId)
+    @RequestMapping(value = "/tasks/{id}" , method = RequestMethod.GET)
+    public ResponseEntity<KanbanTask> GetTaskById(@PathVariable(value = "id") Long taskId)
             throws ResourceNotFoundException {
-        Task task = _taskRepository.findById(taskId)
+        KanbanTask kanbanTask = _taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found for this id :: " + taskId));
-        return new ResponseEntity<Task>(task, HttpStatus.OK);
+        return new ResponseEntity<>(kanbanTask, HttpStatus.OK);
     }
-    @RequestMapping(value = "/task" , method = RequestMethod.POST)
-    public ResponseEntity<Task> AddNewTask(@Valid @RequestBody Task newTask)
-    {
-        Task task = _taskRepository.save(newTask);
-        return new ResponseEntity<Task>(task , HttpStatus.OK);
+
+    @RequestMapping(value = "/tasks" , method = RequestMethod.POST)
+    public ResponseEntity<KanbanTask> AddNewTask(@Valid @RequestBody KanbanTask newKanbanTask) {
+        KanbanTask kanbanTask = _taskRepository.save(newKanbanTask);
+        return new ResponseEntity<>(kanbanTask, HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = "/task/{id}" , method = RequestMethod.PUT)
-    public ResponseEntity < Task > UpdateTask(@PathVariable(value = "id") Long taskId, @Valid @RequestBody Task updatedTask)
+    @RequestMapping(value = "/tasks/{id}" , method = RequestMethod.PUT)
+    public ResponseEntity<KanbanTask> UpdateTask(@PathVariable(value = "id") Long taskId, @Valid @RequestBody KanbanTask updatedKanbanTask)
             throws ResourceNotFoundException {
-        Task task = _taskRepository.findById(taskId)
+        KanbanTask kanbanTask = _taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found for this id :: " + taskId));
 
-        task.setStatus(updatedTask.getStatus());
-        task.setCompleteDate(updatedTask.getCompleteDate());
-        final  Task savedTask = _taskRepository.save(task);
-        return new ResponseEntity<Task>(savedTask, HttpStatus.OK);
+        kanbanTask.setStatus(updatedKanbanTask.getStatus());
+        kanbanTask.setCompleteDate(updatedKanbanTask.getCompleteDate());
+        final KanbanTask savedKanbanTask = _taskRepository.save(kanbanTask);
+        return new ResponseEntity<>(savedKanbanTask, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/task/{id}" , method = RequestMethod.DELETE)
-    public ResponseEntity<Task> DeleteTask(@PathVariable(value = "id") Long taskId)
+    @RequestMapping(value = "/tasks/{id}" , method = RequestMethod.DELETE)
+    public ResponseEntity<KanbanTask> DeleteTask(@PathVariable(value = "id") Long taskId)
             throws ResourceNotFoundException {
-        Task task = _taskRepository.findById(taskId).orElseThrow(() -> new ResourceRequestDeniedException("Task not found for this id :: " + taskId));
-        _taskRepository.delete(task);
-        return new ResponseEntity<Task>(task ,HttpStatus.OK );
+        KanbanTask kanbanTask = _taskRepository.findById(taskId).orElseThrow(() -> new ResourceRequestDeniedException("Task not found for this id :: " + taskId));
+        _taskRepository.delete(kanbanTask);
+        return new ResponseEntity<>(kanbanTask, HttpStatus.OK);
     }
 
 

@@ -1,7 +1,9 @@
 package com.example.kanbanboard.model;
 
-public enum TaskStatus {
+public enum KanbanTaskStatus {
+
     TODO,
     ONGOING,
     DONE
+
 }

@@ -1,21 +1,18 @@
 package com.example.kanbanboard.model;
 
-import org.springframework.expression.spel.ast.NullLiteral;
-
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 
 
 @Entity
 @Table(name = "tasks")
-public class Task {
+public class KanbanTask {
 
     private long id;
     private String title;
     private String content;
     private String dueDate;
     private String completedDate;
-    private TaskStatus status;
+    private KanbanTaskStatus status;
 
 
 
@@ -24,22 +21,18 @@ public class Task {
     public long getId(){
         return this.id;
     }
-
     public void setId(long id){
         this.id = id;
     }
-
-
-
 
     @Column(name = "title", nullable = false)
     public String getTitle(){
         return this.title;
     }
-
     public void setTitle(String title){
         this.title = title;
     }
+
 
     @Column(name = "content", nullable = true)
     public String getContent(){
@@ -54,32 +47,24 @@ public class Task {
     public String getDueDate(){
         return this.dueDate;
     }
-
-
     public void setDueDate(String dueDate){
         this.dueDate = dueDate;
     }
 
 
-
-    //if status not done get null completed date
     @Column(name = "complete_date", nullable = true )
     public String getCompleteDate(){
-        return (getStatus() != TaskStatus.DONE) ? null : this.completedDate;
+        return (getStatus() != KanbanTaskStatus.DONE) ? null : this.completedDate;
     }
-
-
     public void setCompleteDate(String completeDate){
         this.completedDate = completeDate;
     }
 
-
     @Column(name = "status", nullable = false)
-    public TaskStatus getStatus(){
+    public KanbanTaskStatus getStatus(){
         return this.status;
     }
-
-    public void setStatus(TaskStatus status){
+    public void setStatus(KanbanTaskStatus status){
         this.status = status;
     }
 
