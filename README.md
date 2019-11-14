@@ -13,6 +13,9 @@ Maven will install automatically all dependencies for backend in kanbanboard fol
 
 ## Endpoints
 
+
+When requests were called by client , Rest api create a connection with H2 database and client.
+
 |  | POST Request |
 |--|--|
 | URL | http://localhost:8080/api/v1/tasks|
