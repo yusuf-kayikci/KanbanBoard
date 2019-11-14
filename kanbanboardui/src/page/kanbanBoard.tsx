@@ -125,19 +125,19 @@ export const KanbanBoard : React.FC<any> = (props) => {
     const refreshDestThenMove= (result : ITaskState) => {
         switch (result.id) {
             case TaskStatus.TODO: //change also taskstatus after drag end drop
-                    result.items.every((x: any) => {
+                    result.items.every((x: ITask) => {
                         x.status = TaskStatus.TODO;
                     })
                 setTodoState({...todoState , items : result.items})
                 break;
             case TaskStatus.ONGOING:
-                    result.items.every((x: any) => {
+                    result.items.every((x: ITask) => {
                         x.status = TaskStatus.ONGOING;
                     })
                 setOngoingState({...ongoingState , items : result.items});
                 break;
             default:
-                    result.items.every((x: any) => {
+                    result.items.every((x: ITask) => {
                         x.status = TaskStatus.DONE;
                     })
                 setDoneState({...doneState , items : result.items})
@@ -148,19 +148,19 @@ export const KanbanBoard : React.FC<any> = (props) => {
     const refreshSourceThenMove = (result : ITaskState) => {
         switch (result.id) {
             case TaskStatus.TODO:
-                result.items.every((x: any) => {
+                result.items.every((x: ITask) => {
                     x.status = TaskStatus.TODO;
                 })
                 setTodoState({...todoState , items : result.items})
                 break;
             case TaskStatus.ONGOING:
-                    result.items.every((x: any) => {
+                    result.items.every((x: ITask) => {
                         x.status = TaskStatus.ONGOING;
                     })
                 setOngoingState({...ongoingState , items : result.items});
                 break;
             default:
-                    result.items.every((x: any) => {
+                    result.items.every((x: ITask) => {
                         x.status = TaskStatus.DONE;
                     })
                 setDoneState({...doneState , items : result.items})
